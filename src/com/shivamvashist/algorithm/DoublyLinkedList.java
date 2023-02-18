@@ -5,7 +5,7 @@ public class DoublyLinkedList<E> {
     DoublyLinkedListNode<E> head;
     DoublyLinkedListNode<E> tail;
 
-    DoublyLinkedList(){
+    public DoublyLinkedList(){
 
         head = new DoublyLinkedListNode<E>(null);
         tail = new DoublyLinkedListNode<E>(null);

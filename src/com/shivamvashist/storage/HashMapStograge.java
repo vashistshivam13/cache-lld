@@ -1,11 +1,14 @@
 package com.shivamvashist.storage;
 
+import com.shivamvashist.policy.LruEvictionPolicy;
+
 import java.util.HashMap;
 
 public class HashMapStograge<Key, Value> implements Storage<Key, Value> {
 
     HashMap<Key, Value> keyValueHashMap;
     int capacity;
+    LruEvictionPolicy<Key, Value> lruEvictionPolicy;
 
     public HashMapStograge(int capacity) {
         this.keyValueHashMap = new HashMap<Key, Value>();
@@ -17,7 +20,7 @@ public class HashMapStograge<Key, Value> implements Storage<Key, Value> {
         if (keyValueHashMap.size() == capacity) System.out.println("Capacity Full");
         else {
             keyValueHashMap.put(key,value);
-            //call key accessed method
+            lruEvictionPolicy.keyAccessed(key);
         }
     }
 
@@ -25,7 +28,7 @@ public class HashMapStograge<Key, Value> implements Storage<Key, Value> {
     public Value get(Key key) {
         if(keyValueHashMap.get(key) == null) System.out.println("Not Found");
         else {
-            //call key accessed method
+            lruEvictionPolicy.keyAccessed(key);
             return keyValueHashMap.get(key);
         }
         return null;
@@ -36,9 +39,8 @@ public class HashMapStograge<Key, Value> implements Storage<Key, Value> {
         if(keyValueHashMap.get(key) == null) System.out.println("Not Found");
         else {
             Value v = keyValueHashMap.get(key);
-            //call key evict method
+            lruEvictionPolicy.evictKey(key);
             keyValueHashMap.remove(key);
-            //call key accessed method
             return v;
         }
         return null;

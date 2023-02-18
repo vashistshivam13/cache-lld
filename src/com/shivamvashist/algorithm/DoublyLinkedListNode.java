@@ -6,10 +6,13 @@ public class DoublyLinkedListNode<E> {
     DoublyLinkedListNode<E> nextNode;
     E element;
 
-    DoublyLinkedListNode(E element){
+    public DoublyLinkedListNode(E element){
         this.prevNode = null;
         this.nextNode=null;
         this.element = element;
     }
 
+    public <E> E getElement() {
+        return (E) this.element;
+    }
 }
